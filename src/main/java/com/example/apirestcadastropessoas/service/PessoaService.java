@@ -34,8 +34,8 @@ public class PessoaService {
     }
 
     public List<Pessoa> getAllPessoas() {
-        logger.info("Pessoa: {}", pessoaRepository.todos());
-        return pessoaRepository.todos();
+        logger.info("Pessoa: {}", pessoaRepository.findAllWithContatos());
+        return pessoaRepository.findAllWithContatos();
     }
 
     public Page<Pessoa> getPessoasPaginated(Pageable pageable) {

@@ -42,7 +42,7 @@ class PessoaServiceTest {
         pessoas.add(new Pessoa(2L, "Maria", "987654321", LocalDate.of(1995, 5, 10), new ArrayList<>()));
 
         PessoaRepository pessoaRepository = Mockito.mock(PessoaRepository.class);
-        Mockito.when(pessoaRepository.findAll()).thenReturn(pessoas);
+        Mockito.when(pessoaRepository.findAllWithContatos()).thenReturn(pessoas);
 
         PessoaService pessoaService = new PessoaService(pessoaRepository);
 
