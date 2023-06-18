@@ -4,6 +4,7 @@ import com.example.apirestcadastropessoas.exception.ResourceNotFoundException;
 import com.example.apirestcadastropessoas.model.Contato;
 import com.example.apirestcadastropessoas.model.Pessoa;
 import com.example.apirestcadastropessoas.repository.PessoaRepository;
+import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,6 +16,7 @@ import java.util.Arrays;
 import java.util.List;
 
 @Service
+@Transactional
 public class PessoaService {
 
     private final PessoaRepository pessoaRepository;
@@ -25,20 +27,22 @@ public class PessoaService {
         this.pessoaRepository = pessoaRepository;
     }
 
+    @Transactional
     public Pessoa getPessoaById(Long id) {
         return pessoaRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Pessoa não encontrada com o ID: " + id));
     }
 
     public List<Pessoa> getAllPessoas() {
-        logger.info("Pessoa: {}", pessoaRepository.findAllWithContatos());
-        return pessoaRepository.findAllWithContatos();
+        logger.info("Pessoa: {}", pessoaRepository.findAll());
+        return pessoaRepository.findAll();
     }
 
     public Page<Pessoa> getPessoasPaginated(Pageable pageable) {
         return pessoaRepository.findAll(pageable);
     }
 
+    @Transactional
     public Pessoa createPessoa(@Valid Pessoa pessoa) {
         logger.info("Iniciando cadastro de pessoa");
         for (Contato contato : pessoa.getContatos()) {
@@ -49,6 +53,7 @@ public class PessoaService {
         return pessoaRepository.save(pessoa);
     }
 
+    @Transactional
     public Pessoa updatePessoa(Long id, Pessoa pessoaAtualizada) {
         Pessoa pessoa = getPessoaById(id);
         pessoa.setNome(pessoaAtualizada.getNome());

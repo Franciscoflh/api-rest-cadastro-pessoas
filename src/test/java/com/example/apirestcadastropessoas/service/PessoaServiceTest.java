@@ -15,8 +15,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 class PessoaServiceTest {
 
     @Test
@@ -44,7 +42,7 @@ class PessoaServiceTest {
         pessoas.add(new Pessoa(2L, "Maria", "987654321", LocalDate.of(1995, 5, 10), new ArrayList<>()));
 
         PessoaRepository pessoaRepository = Mockito.mock(PessoaRepository.class);
-        Mockito.when(pessoaRepository.findAllWithContatos()).thenReturn(pessoas);
+        Mockito.when(pessoaRepository.findAll()).thenReturn(pessoas);
 
         PessoaService pessoaService = new PessoaService(pessoaRepository);
 

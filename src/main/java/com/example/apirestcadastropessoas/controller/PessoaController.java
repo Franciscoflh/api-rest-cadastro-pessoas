@@ -5,6 +5,7 @@ import com.example.apirestcadastropessoas.service.PessoaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -36,7 +37,7 @@ public class PessoaController {
     }
 
     @GetMapping("/paginado")
-    public ResponseEntity<Page<Pessoa>> getPessoasPaginated(Pageable pageable) {
+    public ResponseEntity<Page<Pessoa>> getPessoasPaginated(@PageableDefault(size = 10) Pageable pageable) {
         Page<Pessoa> pessoas = pessoaService.getPessoasPaginated(pageable);
         return ResponseEntity.ok(pessoas);
     }
